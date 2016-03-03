@@ -2,7 +2,7 @@
 
 ## Installation
 
-    composer require Raz0rwire/transferh
+    composer require codebridge/transfersh
 
 ## Code Example
 
