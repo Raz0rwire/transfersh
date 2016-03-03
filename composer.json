@@ -1,0 +1,22 @@
+{
+    "name": "codebridge/transfersh",
+    "description": "Easy interaction with the transfer.sh API",
+    "keywords": ["API", "Transfer.sh"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kevin Hoogerwerf",
+            "email": "kevin@codebridge.nl",
+            "role": "Developer/Owner"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "guzzlehttp/guzzle": "^6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodeBridge\\": "src/"
+        }
+    }
+}
