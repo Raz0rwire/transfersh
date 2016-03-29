@@ -4,6 +4,8 @@ namespace CodeBridge;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\TransferException;
+use splitbrain\PHPArchive\Zip;
+
 
 class Transfer
 {
@@ -37,22 +39,39 @@ class Transfer
     }
 
     /**
-     * @param string $path
+     * @param $file
      * @param string $file_name
      * @return string
+     * @throws \splitbrain\PHPArchive\ArchiveIOException
      */
-    public function send($path, $file_name = '')
+    public function send($file, $file_name = '')
     {
-        if (!is_file($path)) {
+        if (is_array($file)) {
+            $zip = new Zip();
+            $zip->create();
+
+            foreach ($file as $f) {
+                $zip->addFile($f);
+            }
+
+            if (!$file_name) {
+                $file_name = 'Archive.zip';
+            } else {
+                $file_name = $file_name . '.zip';
+            }
+            $contents = $zip->getArchive();
+        } else if (is_file($file)) {
+            if (!$file_name) {
+                $file_name = basename($file);
+            }
+
+            $contents = file_get_contents($file);
+        } else {
             throw new TransferException('File not found');
         }
 
-        if (!$file_name) {
-            $file_name = basename($path);
-        }
-
-        $response =  $this->client->put('/' . $file_name, [
-            'body' => file_get_contents($path)
+        $response = $this->client->put('/' . $file_name, [
+            'body' => $contents
         ]);
 
         return trim($response->getBody()->getContents());

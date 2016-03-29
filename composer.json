@@ -12,7 +12,8 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "guzzlehttp/guzzle": "^6.1"
+        "guzzlehttp/guzzle": "^6.1",
+        "splitbrain/php-archive": "^1.0"
     },
     "autoload": {
         "psr-4": {
